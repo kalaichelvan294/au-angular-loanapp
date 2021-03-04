@@ -1,0 +1,141 @@
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+
+body {
+  padding: 0;
+}
+
+.modal-backdrop {
+  /* bug fix - no overlay */    
+  display: none;    
+}
+
+body > [uib-modal-window]:not([modal-render]) {
+  display: block;
+}
+
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.header,
+.marketing,
+.footer {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+}
+/* Make the masthead heading the same height as the navigation */
+.header h3 {
+  margin-top: 0;
+  margin-bottom: 0;
+  line-height: 40px;
+  padding-bottom: 19px;
+}
+
+/* Custom page footer */
+.footer {
+  padding-top: 19px;
+  color: #777;
+  border-top: 1px solid #e5e5e5;
+}
+
+.nav-container{
+  margin-left: 0%;
+  margin-right: 0%;
+}
+
+.container-narrow > hr {
+  margin: 30px 0;
+}
+
+/* Main marketing message and sign up button */
+.jumbotron {
+  text-align: center;
+  border-bottom: 1px solid #e5e5e5;
+}
+.jumbotron .btn {
+  font-size: 21px;
+  padding: 14px 24px;
+}
+
+/* Supporting marketing content */
+.marketing {
+  margin: 40px 0;
+}
+.marketing p + h4 {
+  margin-top: 28px;
+}
+
+/* Responsive: Portrait tablets and up */
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+
+  /* Remove the padding we set earlier */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  /* Space out the masthead */
+  .header {
+    margin-bottom: 30px;
+  }
+  /* Remove the bottom border on the jumbotron for visual effect */
+  .jumbotron {
+    border-bottom: 0;
+  }
+}
+
+.nav {
+  padding-top: 8px;
+  background-color: #e45361 !important;
+}
+
+.nav-item {
+  padding-left: 12px;
+}
+
+.nav>li>a {
+  padding-left: 5px;
+  background-color: rgb(41, 41, 41) !important;
+  color: #fff;
+}
+
+.fixedElement {
+  background-color: #0099e0;
+  position:fixed;
+  bottom: 6%;
+  right: 1%;
+  width: 24%;
+  height: auto;
+  z-index:100;
+  border-radius: 1px;
+  opacity: 0.9;
+  box-shadow: -3px 3px 2px 1px rgba(0, 0, 0, .5);
+}
+
+
+.fixedElement-data{
+  padding: 5px;
+  text-align: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+  font-size: large;
+}
+
+.btn-warning{
+  background-color: #dc3545 !important;
+  color : white !important;
+  border-color: #dc3545 !important;
+}

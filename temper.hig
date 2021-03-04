@@ -1,0 +1,92 @@
+'use strict';
+
+/**
+ * @ngdoc overview
+ * @name loanappApp
+ * @description
+ * # loanappApp
+ *
+ * Main module of the application.
+ */
+angular
+  .module('loanappApp', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngRoute',
+    'ngSanitize',
+    'ngTouch',
+    'ui.router'
+  ])
+  .config(function ($locationProvider, $routeProvider) {
+    $locationProvider.hashPrefix('');
+    $routeProvider
+      .when('/myLoans', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl',
+        controllerAs: 'contact'
+      })
+      .when('/applyLoan', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl',
+        controllerAs: 'contact'
+      })
+      .when('/user', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl',
+        controllerAs: 'user'
+      })
+      .when('/', {
+        templateUrl: 'views/user.html',
+        controller: 'UserCtrl',
+        controllerAs: 'user'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+
+  })
+  .run(function($rootScope, loginService){
+    $rootScope.loggedIn = false;
+    $rootScope.currentUser = "null";
+    $rootScope.logoutUser = async function(){
+      var res = await loginService.logoutUser();
+      console.log("logout status: ", res);
+    }
+  });
+
+
+-- bootstrap models not working
+
+function ManagerModalCtrl($scope, $uibModalInstance, items){
+        $scope.loanObject = items;
+        $scope.ok = function() {
+           $uibModalInstance.close($scope.loanObject);
+        };
+        $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+        };
+    };
+
+var modalInstance = $uibmodal.open({
+                animation: true,
+                templateUrl: 'views/approveLoan.html',
+                controller: 'ManagerModalCtrl',
+                size: "lg",
+                resolve: {
+                  items: function() {
+                    return loanObject;
+                  }
+                }
+              });
+          
+            modalInstance.result.then(function(selectedItem) {
+                $scope.selected = selectedItem;
+            }, function() {
+                $log.info('Modal dismissed at: ' + new Date());
+            });

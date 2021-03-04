@@ -1,0 +1,31 @@
+<br/>
+<div class="row justify-content-center">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <div class="lead"><h5>Sign In</h5></div>
+    </div>
+    <div class="col-4"></div>
+</div><br/>
+<div class="row align-items-center">
+    <div class="col-4">&nbsp;</div>
+    <div class="col-4">
+        <form ng-submit="loginUser()">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Email</label>
+                <input type="email" class="form-control" id="exampleFormControlInput1" ng-model="username" ng-disabled="isLoginDisabled" placeholder="user@example.com" required />
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea2" class="form-label">Password</label>
+                <input type="password" class="form-control" id="exampleFormControlInput2" ng-model="password" ng-disabled="isLoginDisabled" placeholder="**********" required />
+            </div>
+            <div class="sm-3">
+                <button class="btn btn-warning" ng-disabled="isLoginDisabled">Login
+                    <div ng-hide="!isLoginDisabled" class="spinner-border spinner-border-sm text-light" role="status">
+                    </div>
+                </button>
+            </div>   
+        </form>
+    </div>      
+    <div class="col-4">&nbsp;</div>
+    <!-- <script>alert('{{username}}');</script> -->
+</div>

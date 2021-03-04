@@ -1,0 +1,136 @@
+<div class="container" ng-controller="ManagerCtrl"><br/>
+
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="approveLoans-tab" ng-click="getUnApprovedLoans()" data-bs-toggle="tab" data-bs-target="#approveLoans" type="button" role="tab" aria-controls="approveLoans" aria-selected="false">Approve Loans</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="history-tab" ng-click="getLoansHistory()" data-bs-toggle="tab" data-bs-target="#history" type="button" role="tab" aria-controls="History" aria-selected="false">History</button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br/>
+          <div class="row gx-5">
+            <div class="col-4">
+                <img src="images/manager.jpg" class="img-thumbnail rounded mx-4 d-block" alt="...">
+            </div>
+            <div class="col-8">
+                <div class="row">
+                    <div class="col-6 bg-light">
+                        <div class="well">Name</div>
+                        <div class="well lead"><h1>{{userDetails.name}}</h1></div>
+                    </div>
+                    <div class="col-6 bg-light">
+                    </div>
+                </div><br/>
+                <div class="row">
+                    <div class="col-6 bg-light">
+                        <div class="well">Email</div>
+                        <div class="well lead">{{userDetails.userId}}</div>
+                    </div>
+                    <div class="col-1"></div>
+                    <div class="col-5 bg-light">
+                        <div class="well">Phone</div>
+                        <div class="well lead">{{userDetails.mobile}}</div>
+                    </div>
+                </div><br/>
+                <div class="row">
+                    <div class="col-6 bg-light">
+                        <div class="well">Address</div>
+                        <div class="well lead">{{userDetails.address}}</div>
+                    </div>
+                    <div class="col-6 bg-light">
+                    </div>
+                </div><br/>
+                <div class="row">
+                  <div class="col-6 bg-light">
+                      <div class="well">Branch Details</div>
+                      <div class="well lead">{{userDetails.branchName}}</div>
+                  </div>
+                  <div class="col-6 bg-light">
+                  </div>
+              </div>
+            </div>
+       </div>
+        </div>
+
+        <!-- start of approve loans -->
+
+        <div class="tab-pane fade" id="approveLoans" role="tabpanel" aria-labelledby="approveLoans-tab"><br/><br/>
+            <div class="row justify-content-between">
+                <table class="table table-striped" id="approveTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Loan Category</th>
+                        <th scope="col">Duration / Interest</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Date of Apply</th>
+                        <th scope="col">Proof given</th>
+                        <th scope="col">Options</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in myUnApprovedLoansArray">
+                        <td>{{x.userId}}</td>
+                        <td>{{x.loanCategory}}</td>
+                        <td>{{x.loanDurationMonth}} Months / {{x.loanInterest}} % </td>
+                        <td>{{x.loanAmount}}</td>
+                        <td>{{x.dateOfApply | date}}</td>
+                        <td>{{x.proofName}}</td>
+                        <td>
+                            <button type="button" class="btn btn-success" ng-click="approveLoan(x)">Approve</button>
+                            <button type="button" class="btn btn-danger" ng-click="rejectLoan(x)">Reject</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end of approve loans -->
+
+         <!-- start of unapproved loans -->
+         <div class="tab-pane fade" id="history" role="tabpanel" aria-labelledby="history-tab"><br/><br/>
+            <div class="row justify-content-between">
+                <table class="table table-striped" id="historyTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">User</th>
+                        <th scope="col">Loan Category</th>
+                        <th scope="col">Duration / Interest</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Date of Apply</th>
+                        <th scope="col">Date of Review</th>
+                        <th scope="col">Proof given</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in loanHistoryArray">
+                        <td>{{x.userId}}</td>
+                        <td>{{x.loanCategory}}</td>
+                        <td>{{x.loanDurationMonth}} Months / {{x.loanInterest}} % </td>
+                        <td>{{x.loanAmount}}</td>
+                        <td>{{x.dateOfApply | date}}</td>
+                        <td>{{x.dateOfApproval | date}}</td>
+                        <td>{{x.proofName}}</td>
+                        <td><button type="button" class="btn" ng-class="{'btn-danger': x.status == 'Rejected', 'btn-success': x.status == 'Approved'}">{{x.status}}</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end of unapproved loans -->
+      
+    </div>
+
+
+
+
+    <br/>
+</div>

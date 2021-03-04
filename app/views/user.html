@@ -1,0 +1,171 @@
+<div class="container" ng-controller="UserCtrl"><br/>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Profile</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="myLoans-tab" ng-click="getLoans()" data-bs-toggle="tab" data-bs-target="#myLoans" type="button" role="tab" aria-controls="myLoans" aria-selected="false">My Loans</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="unApprovedLoans-tab" ng-click="getUnApprovedLoans()" data-bs-toggle="tab" data-bs-target="#unApprovedLoans" type="button" role="tab" aria-controls="unApprovedLoans" aria-selected="false">Approval Pending Loans</button>
+          </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="applyLoan-tab" data-bs-toggle="tab" data-bs-target="#applyLoan" type="button" role="tab" aria-controls="applyLoan" aria-selected="false">Apply Loan</button>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab"><br/>
+           <div class="row gx-5">
+                <div class="col-4">
+                    <img src="images/user.png" class="img-thumbnail rounded mx-4 d-block" alt="...">
+                </div>
+                <div class="col-8">
+                    <div class="row">
+                        <div class="col-6 bg-light">
+                            <div class="well">Name</div>
+                            <div class="well lead"><h1>{{userDetails.name}}</h1></div>
+                        </div>
+                        <div class="col-6 bg-light">
+                        </div>
+                    </div><br/><br/>
+                    <div class="row">
+                        <div class="col-6 bg-light">
+                            <div class="well">Email</div>
+                            <div class="well lead">{{userDetails.userId}}</div>
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-5 bg-light">
+                            <div class="well">Phone</div>
+                            <div class="well lead">{{userDetails.mobile}}</div>
+                        </div>
+                    </div><br/><br/>
+                    <div class="row">
+                        <div class="col-6 bg-light">
+                            <div class="well">Address</div>
+                            <div class="well lead">{{userDetails.address}}</div>
+                        </div>
+                        <div class="col-6 bg-light">
+                        </div>
+                    </div>
+                </div>
+           </div>
+        </div>
+
+        <!-- start of my loans -->
+        <div class="tab-pane fade" id="myLoans" role="tabpanel" aria-labelledby="myLoans-tab"><br/><br/>
+            <div class="row justify-content-between">
+                <table class="table table-striped" id="myLoansTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Loan Category</th>
+                        <th scope="col">Duration / Interest</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Date of Approval</th>
+                        <th scope="col">Pending Amount / Total Amount (incl interest)</th>
+                        <th scope="col">Duration left</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in myLoansArray">
+                        <td>{{x.loanCategory}}</td>
+                        <td>{{x.loanDurationMonth}} Months / {{x.loanInterest}} % </td>
+                        <td>{{x.loanAmount}}</td>
+                        <td>{{x.dateOfApproval | date}}</td>
+                        <td>{{x.pendingAmount}} / {{x.loanAmount}} </td>
+                        <td>{{x.pendingDuration}}</td>
+                        <td><button type="button" class="btn" ng-class="{'btn-success': x.status == 'Approved', 'btn-primary': x.status == 'Pending'}">{{x.status}}</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end of my loans -->
+
+         <!-- start of unapproved loans -->
+         <div class="tab-pane fade" id="unApprovedLoans" role="tabpanel" aria-labelledby="unApprovedLoans-tab"><br/>
+            <div class="row justify-content-between">
+                <table class="table table-striped" id="unApprovedLoansTable">
+                    <thead>
+                      <tr>
+                        <th scope="col">Loan Category</th>
+                        <th scope="col">Duration / Interest</th>
+                        <th scope="col">Loan Amount</th>
+                        <th scope="col">Date of Apply</th>
+                        <th scope="col">Proof given</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr ng-repeat="x in myUnApprovedLoansArray">
+                        <td>{{x.loanCategory}}</td>
+                        <td>{{x.loanDurationMonth}} Months / {{x.loanInterest}} % </td>
+                        <td>{{x.loanAmount}}</td>
+                        <td>{{x.dateOfApply | date}}</td>
+                        <td>{{x.proofName}}</td>
+                        <td><button type="button" class="btn" ng-class="{'btn-danger': x.status == 'Rejected', 'btn-primary': x.status == 'Pending'}">{{x.status}}</button></td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+         </div>
+        <!-- end of unapproved loans -->
+
+        <!-- start of apply loan -->
+        <div class="tab-pane fade" id="applyLoan" role="tabpanel" aria-labelledby="applyLoan-tab"><br/>
+            <div class="lead">Loan Details</div><br/>
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <select class="form-select" ng-model="selectedLoanCategory" aria-label="Default select example">
+                        <option selected>Select Loan Type</option>
+                        <option ng-repeat="loanType in loanCategories" value="{{loanType}}">{{loanType}}</option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <select class="form-select" ng-model="selectedLoanDuration" aria-label="Default select example">
+                        <option selected>Select Loan Duration</option>
+                        <option ng-repeat="loanDuration in loanDurations" value="{{loanDuration.id}}">{{loanDuration.months}} Months / {{loanDuration.interest}}% Interest </option>
+                    </select>
+                </div>
+                <div class="col-4">
+                    <input type="number" min="0" class="form-control" id="loanAmount" ng-model="loanAmount" placeholder="Loan Amount" required />
+                </div>
+            </div>
+            <br/>
+            <div class="lead">Proof Details</div><br/>
+            <div class="row justify-content-between">
+                <div class="col-4">
+                    <input type="text" class="form-control" id="proofType" ng-model="proofName" placeholder="Type of Proof" required />
+                </div>
+                <div class="col-4">
+                    <input type="text" class="form-control" id="proofId" ng-model="proofId" placeholder="Proof ID Number - if any" required />
+                </div>
+                <div class="col-4">
+                    <input type="number" class="form-control" min="0" id="cibilScore" ng-model="cibilScore" placeholder="Cibil Score" />
+                </div>
+            </div>
+            <br/>
+            <div class="row align-items-start">
+                <div class="col-1">
+                    <button type="button" class="btn btn-warning btn-lg" ng-click="clearApplyLoan()">Reset</button>
+                </div>
+                <div class="col-1">
+                    <button type="button" class="btn btn-primary btn-lg" ng-click="applyLoan()">Apply</button>
+                </div>
+            </div>
+            <br/>
+            <div class="row align-items-start" ng-show="inputValidationMessageVisibility">
+                <div class="col-5">
+                    <div class="card" style="width: 40rem; border-color: red;">
+                        <div class="card-body">
+                            <div class="lead">Enter Valid Details</div>
+                          <div class="well" ng-repeat="message in inputValidationMessage">{{message}}</div>
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
