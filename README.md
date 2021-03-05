@@ -24,7 +24,7 @@
 ### RestApi
 
 git link: https://github.com/kalaichelvan-kn/au-nodejs-restapi-loanapp
-Rest api db: https://github.com/kalaichelvan-kn/au-angular-loanapp/loanapp.sql 
+Rest api db: https://github.com/kalaichelvan-kn/au-angular-loanapp/blob/main/loanapp.sql 
 
 ### screenshots
 
